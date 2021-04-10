@@ -2,48 +2,42 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
-const userData = [
+const productData = [
   {
-    name: 'Alice',
-    email: 'alice@prisma.io',
-    posts: {
+    title: 'MacBook Pro',
+    price: 1500,
+    description: '14 inch MacBook Pro',
+    categories: {
       create: [
         {
-          title: 'Join the Prisma Slack',
-          content: 'https://slack.prisma.io',
-          published: true,
+          description: 'Electronics',
         },
       ],
     },
   },
   {
-    name: 'Nilu',
-    email: 'nilu@prisma.io',
-    posts: {
+    title: 'Adidas UltraBoost',
+    price: 150,
+    description: 'Top Rated Running shoes',
+    categories: {
       create: [
         {
-          title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
-          viewCount: 42,
+          description: 'Shoes',
         },
       ],
     },
   },
   {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
-    posts: {
+    title: 'AirMax',
+    price: 190,
+    description: 'Nike airmax 2020 running shoes',
+    categories: {
       create: [
         {
-          title: 'Ask a question about Prisma on GitHub',
-          content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
-          viewCount: 128,
+          description: 'Shoes',
         },
         {
-          title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
+          description: 'Active Running Shoes',
         },
       ],
     },
@@ -52,11 +46,11 @@ const userData = [
 
 async function main() {
   console.log(`Start seeding ...`)
-  for (const u of userData) {
-    const user = await prisma.user.create({
-      data: u,
+  for (const p of productData) {
+    const product = await prisma.product.create({
+      data: p,
     })
-    console.log(`Created user with id: ${user.id}`)
+    console.log(`Created Product with id: ${product.id}`)
   }
   console.log(`Seeding finished.`)
 }
