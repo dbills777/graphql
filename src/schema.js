@@ -12,7 +12,7 @@ const {
 const { DateTimeResolver } = require('graphql-scalars')
 
 const DateTime = asNexusMethod(DateTimeResolver, 'date')
-// similar to get
+// similar to get 
 const Query = objectType({
   name: 'Query',
   definition(t) {
