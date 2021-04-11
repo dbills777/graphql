@@ -12,7 +12,7 @@ const {
 const { DateTimeResolver } = require('graphql-scalars')
 
 const DateTime = asNexusMethod(DateTimeResolver, 'date')
-// similar to get 
+// similar to get
 const Query = objectType({
   name: 'Query',
   definition(t) {
@@ -101,115 +101,115 @@ const Query = objectType({
 })
 // similar to create, update, delete
 
-// const Mutation = objectType({
-//   name: 'Mutation',
-//   definition(t) {
-//     t.nonNull.field('signupUser', {
-//       type: 'User',
-//       args: {
-//         data: nonNull(
-//           arg({
-//             type: 'UserCreateInput',
-//           }),
-//         ),
-//       },
-//       resolve: (_, args, context) => {
-//         const postData = args.data.posts
-//           ? args.data.posts.map((post) => {
-//             return { title: post.title, content: post.content || undefined }
-//           })
-//           : []
-//         return context.prisma.user.create({
-//           data: {
-//             name: args.data.name,
-//             email: args.data.email,
-//             posts: {
-//               create: postData,
-//             },
-//           },
-//         })
-//       },
-//     })
+const Mutation = objectType({
+  name: 'Mutation',
+  definition(t) {
+  //   t.nonNull.field('signupUser', {
+  //     type: 'User',
+  //     args: {
+  //       data: nonNull(
+  //         arg({
+  //           type: 'UserCreateInput',
+  //         }),
+  //       ),
+  //     },
+  //     resolve: (_, args, context) => {
+  //       const postData = args.data.posts
+  //         ? args.data.posts.map((post) => {
+  //           return { title: post.title, content: post.content || undefined }
+  //         })
+  //         : []
+  //       return context.prisma.user.create({
+  //         data: {
+  //           name: args.data.name,
+  //           email: args.data.email,
+  //           posts: {
+  //             create: postData,
+  //           },
+  //         },
+  //       })
+  //     },
+    // })
 
-//     t.field('createDraft', {
-//       type: 'Post',
-//       args: {
-//         data: nonNull(
-//           arg({
-//             type: 'PostCreateInput',
-//           }),
-//         ),
-//         authorEmail: nonNull(stringArg()),
-//       },
-//       resolve: (_, args, context) => {
-//         return context.prisma.post.create({
-//           data: {
-//             title: args.data.title,
-//             content: args.data.content,
-//             author: {
-//               connect: { email: args.authorEmail },
-//             },
-//           },
-//         })
-//       },
-//     })
+    t.field('createCategory', {
+      type: 'Category',
+      args: {
+        data: nonNull(
+          arg({
+            type: 'CategoryCreateInput',
+          }),
+        ),
+        productTitle: nonNull(stringArg()),
+      },
+      resolve: (_, args, context) => {
+        return context.prisma.category.create({
+          data: {
+            description: args.data.description,
+            content: args.data.content,
+            product: {
+              connect: { title: args.productTitle },
+            },
+          },
+        })
+      },
+    })
 
-//     t.field('togglePublishPost', {
-//       type: 'Post',
-//       args: {
-//         id: nonNull(intArg()),
-//       },
-//       resolve: async (_, args, context) => {
-//         const post = await context.prisma.post.findUnique({
-//           where: { id: args.id || undefined },
-//           select: {
-//             published: true,
-//           },
-//         })
+    // t.field('togglePublishPost', {
+    //   type: 'Post',
+    //   args: {
+    //     id: nonNull(intArg()),
+    //   },
+    //   resolve: async (_, args, context) => {
+    //     const post = await context.prisma.post.findUnique({
+    //       where: { id: args.id || undefined },
+    //       select: {
+    //         published: true,
+    //       },
+    //     })
 
-//         if (!post) {
-//           throw new Error(
-//             `Post with ID ${args.id} does not exist in the database.`,
-//           )
-//         }
+    //     if (!post) {
+    //       throw new Error(
+    //         `Post with ID ${args.id} does not exist in the database.`,
+    //       )
+    //     }
 
-//         return context.prisma.post.update({
-//           where: { id: args.id || undefined },
-//           data: { published: !post.published },
-//         })
-//       },
-//     })
+    //     return context.prisma.post.update({
+    //       where: { id: args.id || undefined },
+    //       data: { published: !post.published },
+    //     })
+    //   },
+    // })
 
-//     t.field('incrementPostViewCount', {
-//       type: 'Post',
-//       args: {
-//         id: nonNull(intArg()),
-//       },
-//       resolve: (_, args, context) => {
-//         return context.prisma.post.update({
-//           where: { id: args.id || undefined },
-//           data: {
-//             viewCount: {
-//               increment: 1,
-//             },
-//           },
-//         })
-//       },
-//     })
+  //   t.field('incrementPostViewCount', {
+  //     type: 'Post',
+  //     args: {
+  //       id: nonNull(intArg()),
+  //     },
+  //     resolve: (_, args, context) => {
+  //       return context.prisma.post.update({
+  //         where: { id: args.id || undefined },
+  //         data: {
+  //           viewCount: {
+  //             increment: 1,
+  //           },
+  //         },
+  //       })
+  //     },
+  //   })
 
-//     t.field('deletePost', {
-//       type: 'Post',
-//       args: {
-//         id: nonNull(intArg()),
-//       },
-//       resolve: (_, args, context) => {
-//         return context.prisma.post.delete({
-//           where: { id: args.id },
-//         })
-//       },
-//     })
-//   },
-// })
+  //   t.field('deletePost', {
+  //     type: 'Post',
+  //     args: {
+  //       id: nonNull(intArg()),
+  //     },
+  //     resolve: (_, args, context) => {
+  //       return context.prisma.post.delete({
+  //         where: { id: args.id },
+  //       })
+  //     },
+  //   })
+  },
+})
 
 const Product = objectType({
   name: 'Product',
@@ -272,13 +272,13 @@ const Category = objectType({
 //   },
 // })
 
-// const PostCreateInput = inputObjectType({
-//   name: 'PostCreateInput',
-//   definition(t) {
-//     t.nonNull.string('title')
-//     t.string('content')
-//   },
-// })
+const CategoryCreateInput = inputObjectType({
+  name: 'CategoryCreateInput',
+  definition(t) {
+    t.nonNull.string('title')
+    t.string('description')
+  },
+})
 
 // const UserCreateInput = inputObjectType({
 //   name: 'UserCreateInput',
@@ -292,12 +292,12 @@ const Category = objectType({
 const schema = makeSchema({
   types: [
     Query,
-    // Mutation,
+    Mutation,
     Category,
     Product,
     // UserUniqueInput,
     // UserCreateInput,
-    // PostCreateInput,
+    CategoryCreateInput,
     // SortOrder,
     // PostOrderByUpdatedAtInput,
     DateTime,
