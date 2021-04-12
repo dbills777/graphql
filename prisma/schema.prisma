@@ -1,4 +1,6 @@
+// npx prisma migrate dev --name products-init
 generator client {
+
   provider = "prisma-client-js"
 }
 
@@ -12,9 +14,9 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title String
-  price Int
+  price Float
   description String
-  // category String?
+  category String
   image String?
   categories Category[]
 }

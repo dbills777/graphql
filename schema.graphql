@@ -26,10 +26,11 @@ type Mutation {
 
 type Product {
   categories: [Category!]!
+  category: String
   description: String!
   id: Int!
   image: String
-  price: Int!
+  price: String!
   title: String!
 }
 

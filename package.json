@@ -11,7 +11,8 @@
   },
   "scripts": {
     "dev": "nodemon src/server.js",
-    "seed": "npx prisma db seed --preview-feature"
+    "seed": "npx prisma db seed --preview-feature",
+    "seed:product": "node prisma/seed/seedTestProducts.js"
   },
   "devDependencies": {
     "nodemon": "2.0.7",

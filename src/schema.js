@@ -73,30 +73,30 @@ const Query = objectType({
     //   },
     // })
 
-  //   t.list.field('draftsByUser', {
-  //     type: 'Post',
-  //     args: {
-  //       userUniqueInput: nonNull(
-  //         arg({
-  //           type: 'UserUniqueInput',
-  //         }),
-  //       ),
-  //     },
-  //     resolve: (_parent, args, context) => {
-  //       return context.prisma.user
-  //         .findUnique({
-  //           where: {
-  //             id: args.userUniqueInput.id || undefined,
-  //             email: args.userUniqueInput.email || undefined,
-  //           },
-  //         })
-  //         .posts({
-  //           where: {
-  //             published: false,
-  //           },
-  //         })
-  //     },
-  //   })
+    //   t.list.field('draftsByUser', {
+    //     type: 'Post',
+    //     args: {
+    //       userUniqueInput: nonNull(
+    //         arg({
+    //           type: 'UserUniqueInput',
+    //         }),
+    //       ),
+    //     },
+    //     resolve: (_parent, args, context) => {
+    //       return context.prisma.user
+    //         .findUnique({
+    //           where: {
+    //             id: args.userUniqueInput.id || undefined,
+    //             email: args.userUniqueInput.email || undefined,
+    //           },
+    //         })
+    //         .posts({
+    //           where: {
+    //             published: false,
+    //           },
+    //         })
+    //     },
+    //   })
   },
 })
 // similar to create, update, delete
@@ -104,31 +104,31 @@ const Query = objectType({
 const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-  //   t.nonNull.field('signupUser', {
-  //     type: 'User',
-  //     args: {
-  //       data: nonNull(
-  //         arg({
-  //           type: 'UserCreateInput',
-  //         }),
-  //       ),
-  //     },
-  //     resolve: (_, args, context) => {
-  //       const postData = args.data.posts
-  //         ? args.data.posts.map((post) => {
-  //           return { title: post.title, content: post.content || undefined }
-  //         })
-  //         : []
-  //       return context.prisma.user.create({
-  //         data: {
-  //           name: args.data.name,
-  //           email: args.data.email,
-  //           posts: {
-  //             create: postData,
-  //           },
-  //         },
-  //       })
-  //     },
+    //   t.nonNull.field('signupUser', {
+    //     type: 'User',
+    //     args: {
+    //       data: nonNull(
+    //         arg({
+    //           type: 'UserCreateInput',
+    //         }),
+    //       ),
+    //     },
+    //     resolve: (_, args, context) => {
+    //       const postData = args.data.posts
+    //         ? args.data.posts.map((post) => {
+    //           return { title: post.title, content: post.content || undefined }
+    //         })
+    //         : []
+    //       return context.prisma.user.create({
+    //         data: {
+    //           name: args.data.name,
+    //           email: args.data.email,
+    //           posts: {
+    //             create: postData,
+    //           },
+    //         },
+    //       })
+    //     },
     // })
 
     t.field('createCategory', {
@@ -180,34 +180,34 @@ const Mutation = objectType({
     //   },
     // })
 
-  //   t.field('incrementPostViewCount', {
-  //     type: 'Post',
-  //     args: {
-  //       id: nonNull(intArg()),
-  //     },
-  //     resolve: (_, args, context) => {
-  //       return context.prisma.post.update({
-  //         where: { id: args.id || undefined },
-  //         data: {
-  //           viewCount: {
-  //             increment: 1,
-  //           },
-  //         },
-  //       })
-  //     },
-  //   })
+    //   t.field('incrementPostViewCount', {
+    //     type: 'Post',
+    //     args: {
+    //       id: nonNull(intArg()),
+    //     },
+    //     resolve: (_, args, context) => {
+    //       return context.prisma.post.update({
+    //         where: { id: args.id || undefined },
+    //         data: {
+    //           viewCount: {
+    //             increment: 1,
+    //           },
+    //         },
+    //       })
+    //     },
+    //   })
 
-  //   t.field('deletePost', {
-  //     type: 'Post',
-  //     args: {
-  //       id: nonNull(intArg()),
-  //     },
-  //     resolve: (_, args, context) => {
-  //       return context.prisma.post.delete({
-  //         where: { id: args.id },
-  //       })
-  //     },
-  //   })
+    //   t.field('deletePost', {
+    //     type: 'Post',
+    //     args: {
+    //       id: nonNull(intArg()),
+    //     },
+    //     resolve: (_, args, context) => {
+    //       return context.prisma.post.delete({
+    //         where: { id: args.id },
+    //       })
+    //     },
+    //   })
   },
 })
 
@@ -216,8 +216,9 @@ const Product = objectType({
   definition(t) {
     t.nonNull.int('id')
     t.nonNull.string('title')
-    t.nonNull.int('price')
+    t.nonNull.string('price')
     t.nonNull.string('description')
+    t.string('category')
     t.string('image')
     t.nonNull.list.nonNull.field('categories', {
       type: 'Category',
