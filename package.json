@@ -10,11 +10,12 @@
     "nexus": "1.0.0"
   },
   "scripts": {
-    "dev": "nodemon src/server.js",
     "launchDocker": "docker run --name graphql-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v pgdata:/var/lib/postgresql/data postgres:latest",
     "migrate": "npx prisma migrate dev --name init",
+    "freshStart": "docker stop graphql-docker && docker rm graphql-docker && docker volume rm -f pgdata && rm -rf prisma/migrations",
+    "seed:product": "node prisma/seed/seedTestProducts.js",
     "seed": "npx prisma db seed --preview-feature",
-    "seed:product": "node prisma/seed/seedTestProducts.js"
+    "dev": "nodemon src/server.js"
   },
   "devDependencies": {
     "nodemon": "2.0.7",
