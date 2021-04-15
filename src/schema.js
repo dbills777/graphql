@@ -104,32 +104,28 @@ const Query = objectType({
 const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-    //   t.nonNull.field('signupUser', {
-    //     type: 'User',
-    //     args: {
-    //       data: nonNull(
-    //         arg({
-    //           type: 'UserCreateInput',
-    //         }),
-    //       ),
-    //     },
-    //     resolve: (_, args, context) => {
-    //       const postData = args.data.posts
-    //         ? args.data.posts.map((post) => {
-    //           return { title: post.title, content: post.content || undefined }
-    //         })
-    //         : []
-    //       return context.prisma.user.create({
-    //         data: {
-    //           name: args.data.name,
-    //           email: args.data.email,
-    //           posts: {
-    //             create: postData,
-    //           },
-    //         },
-    //       })
-    //     },
-    // })
+      t.nonNull.field('createProduct', {
+        type: 'Product',
+        args: {
+          data: nonNull(
+            arg({
+              type: 'ProductCreateInput',
+            }),
+          ),
+        },
+        resolve: (_, args, context) => {
+          return context.prisma.product.create({
+            data: {
+              title: args.data.title,
+              price: args.data.price,
+              description: args.data.description,
+              category: args.data.category,
+              image: args.data.image,
+              
+            },
+          })
+        },
+    })
 
     t.field('createCategory', {
       type: 'Category',
@@ -197,17 +193,17 @@ const Mutation = objectType({
     //     },
     //   })
 
-    //   t.field('deletePost', {
-    //     type: 'Post',
-    //     args: {
-    //       id: nonNull(intArg()),
-    //     },
-    //     resolve: (_, args, context) => {
-    //       return context.prisma.post.delete({
-    //         where: { id: args.id },
-    //       })
-    //     },
-    //   })
+      t.field('deleteProduct', {
+        type: 'Product',
+        args: {
+          id: nonNull(intArg()),
+        },
+        resolve: (_, args, context) => {
+          return context.prisma.product.delete({
+            where: { id: args.id },
+          })
+        },
+      })
   },
 })
 
@@ -281,14 +277,17 @@ const CategoryCreateInput = inputObjectType({
   },
 })
 
-// const UserCreateInput = inputObjectType({
-//   name: 'UserCreateInput',
-//   definition(t) {
-//     t.nonNull.string('email')
-//     t.string('name')
-//     t.list.nonNull.field('posts', { type: 'PostCreateInput' })
-//   },
-// })
+const ProductCreateInput = inputObjectType({
+  name: 'ProductCreateInput',
+  definition(t) {
+    t.nonNull.string('title')
+    t.nonNull.float('price')
+    t.nonNull.string('description')
+    t.nonNull.string('category')
+    t.nonNull.string('image')
+    t.string('name')
+  },
+})
 
 const schema = makeSchema({
   types: [
@@ -297,7 +296,7 @@ const schema = makeSchema({
     Category,
     Product,
     // UserUniqueInput,
-    // UserCreateInput,
+    ProductCreateInput,
     CategoryCreateInput,
     // SortOrder,
     // PostOrderByUpdatedAtInput,

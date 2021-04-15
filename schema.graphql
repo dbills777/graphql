@@ -22,6 +22,8 @@ scalar DateTime
 
 type Mutation {
   createCategory(data: CategoryCreateInput!, productTitle: String!): Category
+  createProduct(data: ProductCreateInput!): Product!
+  deleteProduct(id: Int!): Product
 }
 
 type Product {
@@ -31,6 +33,15 @@ type Product {
   id: Int!
   image: String
   price: String!
+  title: String!
+}
+
+input ProductCreateInput {
+  category: String!
+  description: String!
+  image: String!
+  name: String
+  price: Float!
   title: String!
 }
 
